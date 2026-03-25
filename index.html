@@ -190,7 +190,7 @@ function sendData() {
 
     document.getElementById("status").innerText = "Submitting...";
 
-    fetch("YOUR_SCRIPT_URL", {
+    fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec", {
         method: "POST",
         body: JSON.stringify({ name: name })
     })
