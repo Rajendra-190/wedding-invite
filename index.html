@@ -16,126 +16,92 @@ html,body{width:100%;min-height:100%;overflow-x:hidden}
 body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-align:center}
 
 /* ── SCREEN 1: ENVELOPE ── */
+/* ── SCREEN 1: PREMIUM BACKGROUND ── */
 #screen-envelope{
-  position:fixed;inset:0;z-index:100;
-  background:radial-gradient(ellipse at 50% 30%,#4a0828 0%,#1a0010 70%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:fixed;
+  inset:0;
+  z-index:100;
+
+  /* Background image + gradient overlay */
+  background:
+    linear-gradient(rgba(90,10,40,0.75), rgba(26,0,16,0.95)),
+    url('couple.jpg.jpeg') center/cover no-repeat;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+
   transition:opacity 0.8s ease;
   cursor:pointer;
 }
-#screen-envelope.hide{opacity:0;pointer-events:none}
 
-/* Big tap-anywhere glow ring */
-.tap-ring{
-  position:absolute;inset:0;
-  border:4px solid rgba(212,175,55,0.15);
-  border-radius:0;
-  animation:ringPulse 2s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes ringPulse{0%,100%{opacity:0.3}50%{opacity:1}}
-
-.env-top-text{
-  color:var(--gold);font-size:1.1rem;letter-spacing:2px;
-  margin-bottom:6px;font-weight:300;
-}
-.env-top-hindi{
-  color:rgba(255,255,255,0.9);font-size:1.4rem;font-weight:600;
-  margin-bottom:24px;line-height:1.4;
+/* soft blur glass effect */
+#screen-envelope::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  backdrop-filter: blur(6px);
 }
 
-/* Envelope */
-.env-wrap{position:relative;width:260px;height:185px;margin-bottom:10px}
-.env-body{
-  position:absolute;inset:0;
-  background:linear-gradient(160deg,#7a1535,#4a0820);
-  border-radius:6px 6px 14px 14px;
-  border:2px solid var(--gold);
-  box-shadow:0 0 50px rgba(212,175,55,0.3),0 0 100px rgba(212,175,55,0.1);
-  overflow:hidden;
-}
-.env-flap{
-  position:absolute;top:0;left:0;right:0;height:105px;
-  background:linear-gradient(170deg,#9a1d42,#6a1030);
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  border-bottom:1px solid var(--gold);
-  transform-origin:top center;
-  transition:transform 1s cubic-bezier(0.4,0,0.2,1);
-  z-index:2;
-}
-.env-flap.open{transform:rotateX(180deg)}
-.env-sides-left{
-  position:absolute;bottom:0;left:0;width:51%;height:100%;
-  background:linear-gradient(135deg,#8a1840 60%,transparent);
-  clip-path:polygon(0 100%,100% 100%,0 0);
-}
-.env-sides-right{
-  position:absolute;bottom:0;right:0;width:51%;height:100%;
-  background:linear-gradient(225deg,#6a1030 60%,transparent);
-  clip-path:polygon(100% 100%,0 100%,100% 0);
-}
-.env-seal{
-  position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
-  width:50px;height:50px;border-radius:50%;
-  background:linear-gradient(135deg,var(--gold),#a07820);
-  border:2px solid var(--gold2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;z-index:3;
-  box-shadow:0 0 16px rgba(212,175,55,0.5);
-  animation:sealPulse 2s infinite;
-  transition:opacity 0.4s;
-}
-@keyframes sealPulse{0%,100%{box-shadow:0 0 16px rgba(212,175,55,0.5)}50%{box-shadow:0 0 32px rgba(212,175,55,0.9)}}
-.env-card-peek{
-  position:absolute;left:10%;right:10%;
-  background:linear-gradient(160deg,#fff9f0,#fff0e8);
-  border-radius:4px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;color:#8a3040;font-weight:600;letter-spacing:1px;
-  transition:bottom 1s cubic-bezier(0.4,0,0.2,1),height 1s cubic-bezier(0.4,0,0.2,1);
-  bottom:6px;height:55px;z-index:1;overflow:hidden;
-}
-.env-card-peek.rising{bottom:55px;height:90px}
-.env-card-peek span{opacity:0.7}
-
-/* Big bouncing hand */
-.big-hand{
-  font-size:3.5rem;
-  display:block;
-  margin:16px auto 4px;
-  animation:handBounce 1s ease-in-out infinite;
-  line-height:1;
-}
-@keyframes handBounce{
-  0%,100%{transform:translateY(0) rotate(-10deg)}
-  50%{transform:translateY(-12px) rotate(10deg)}
+/* top heading */
+.top-heading{
+  position:absolute;
+  top:60px;
+  text-align:center;
 }
 
-/* Arrow */
-.tap-arrow{
-  color:var(--gold);font-size:2rem;
-  animation:arrowBounce 0.8s ease-in-out infinite;
-  display:block;margin:0 auto 6px;
-}
-@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-
-/* Hindi + English hint */
-.hint-hindi{
-  font-size:1.5rem;font-weight:700;
+.top-heading .hindi{
+  font-size:1.5rem;
   color:#fff;
-  background:rgba(212,175,55,0.18);
-  border:2px solid rgba(212,175,55,0.5);
-  border-radius:14px;
-  padding:10px 28px;
-  margin:0 auto;
-  display:inline-block;
-  animation:hintGlow 1.5s ease-in-out infinite;
+  margin-bottom:8px;
 }
-@keyframes hintGlow{0%,100%{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.5)}50%{background:rgba(212,175,55,0.35);border-color:var(--gold)}}
-.hint-english{
-  color:rgba(255,255,255,0.5);font-size:0.75rem;
-  letter-spacing:2px;text-transform:uppercase;
-  margin-top:6px;display:block;
+
+.top-heading .names{
+  font-size:2rem;
+  color:var(--gold);
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* envelope center alignment */
+.env-wrap{
+  position:relative;
+  width:300px;
+  height:200px;
+  margin-top:60px;
+}
+
+/* enhance envelope */
+.env-body{
+  background:linear-gradient(160deg,#7a1535,#4a0820);
+  border:2px solid var(--gold);
+  box-shadow:0 0 40px rgba(212,175,55,0.4);
+}
+
+/* bottom hint styling */
+.tap-section{
+  position:absolute;
+  bottom:80px;
+  text-align:center;
+}
+
+.tap-section .hand{
+  font-size:3rem;
+  animation:handBounce 1s infinite;
+}
+
+.tap-section .hindi{
+  font-size:1.6rem;
+  color:var(--gold);
+  font-weight:700;
+  margin-top:8px;
+}
+
+.tap-section .eng{
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.7);
 }
 
 /* ── SCREEN 2: CARD ── */
@@ -224,26 +190,33 @@ body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:#fff;text-al
 
 <!-- ══════════ SCREEN 1 ══════════ -->
 <div id="screen-envelope" onclick="openEnvelope()">
-  <div class="tap-ring"></div>
 
-  <div class="env-top-hindi">शादी का निमंत्रण 💍</div>
-  <div class="env-top-text">Rajendra ❤️ Gudiya</div>
+  <!-- TOP TEXT -->
+  <div class="top-heading">
+    <div class="hindi">शादी का निमंत्रण 💍</div>
+    <div class="names">Rajendra ❤️ Gudiya</div>
+  </div>
 
+  <!-- ENVELOPE -->
   <div class="env-wrap">
     <div class="env-body">
       <div class="env-sides-left"></div>
       <div class="env-sides-right"></div>
       <div class="env-flap" id="envFlap"></div>
       <div class="env-seal" id="envSeal">💍</div>
-      <div class="env-card-peek" id="envPeek"><span>WEDDING INVITATION</span></div>
+      <div class="env-card-peek" id="envPeek">
+        <span>WEDDING INVITATION</span>
+      </div>
     </div>
   </div>
 
-  <!-- Big obvious tap prompt -->
-  <span class="big-hand">👆</span>
-  <span class="tap-arrow">▼</span>
-  <span class="hint-hindi">यहाँ दबाएँ</span>
-  <span class="hint-english">Tap anywhere to open</span>
+  <!-- TAP SECTION -->
+  <div class="tap-section">
+    <div class="hand">👇</div>
+    <div class="hindi">यहाँ दबाएँ</div>
+    <div class="eng">Tap anywhere to open</div>
+  </div>
+
 </div>
 
 <!-- ══════════ SCREEN 2 ══════════ -->
