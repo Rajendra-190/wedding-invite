@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rajendra ❤️ Gudiya Wedding</title>
 
-<!-- ✅ Social Preview Meta Tags (CORRECT POSITION) -->
 <meta property="og:title" content="Rajendra ❤️ Gudiya Wedding Invitation">
 <meta property="og:description" content="You are invited to celebrate our special day 💍 29 April 2026">
 <meta property="og:image" content="https://wedding-wishes.github.io/wedding-invite/couple.jpg">
 <meta property="og:url" content="https://wedding-wishes.github.io/wedding-invite/">
 <meta name="twitter:card" content="summary_large_image">
+
 <style>
 body {
     margin: 0;
@@ -20,25 +20,21 @@ body {
     text-align: center;
 }
 
-/* Sections */
 section {
     padding: 20px 10px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     animation: fadeIn 1s ease-in;
 }
 
-/* Headings */
 h1, h2 {
     color: gold;
     margin: 10px 0;
 }
 
-/* Countdown */
 .countdown {
     font-size: 1.5rem;
 }
 
-/* Card */
 .card {
     background: rgba(255,255,255,0.05);
     padding: 15px;
@@ -48,7 +44,6 @@ h1, h2 {
     box-shadow: 0 0 10px rgba(255,215,0,0.2);
 }
 
-/* Image */
 img {
     width: 100%;
     max-width: 300px;
@@ -56,7 +51,6 @@ img {
     border: 3px solid gold;
 }
 
-/* Input */
 input {
     padding: 8px;
     border-radius: 6px;
@@ -64,7 +58,6 @@ input {
     width: 200px;
 }
 
-/* Button */
 button {
     padding: 8px 16px;
     background: gold;
@@ -78,18 +71,15 @@ button:hover {
     background: orange;
 }
 
-/* Text */
 p {
     margin: 5px 0;
 }
 
-/* Animation */
 @keyframes fadeIn {
     from {opacity: 0; transform: translateY(15px);}
     to {opacity: 1; transform: translateY(0);}
 }
 
-/* 🌸 Flowers */
 .flower {
     position: fixed;
     top: -50px;
@@ -107,11 +97,12 @@ p {
 
 <body>
 
-<!-- 🎵 Wedding Music -->
-<!-- 🎵 MUSIC -->
+<!-- 🎵 MUSIC (AUTOPLAY FIXED) -->
 <audio id="music" autoplay loop muted playsinline>
-  <source src="wedding_invitation_card_music_bollywood_song_arrahman_wedding_ga.m4a" type="audio/mpeg">
+  <source src="wedding_invitation_card_music_bollywood_song_arrahman_wedding_ga.m4a" type="audio/mp4">
 </audio>
+
+<p>🔊 Music will start automatically</p>
 
 <!-- 🎉 HERO -->
 <section>
@@ -126,12 +117,8 @@ p {
     <h2>💑 Rajendra ❤️ Gudiya</h2>
     <div class="card">
         <img src="couple.jpg.jpeg" alt="Couple Photo">
-
         <p><b>Ek nayi zindagi ki shuruaat...</b></p>
-        
-        <p><i>
-            "Do dil, ek bandhan, aur ek nayi kahani..."
-        </i></p>
+        <p><i>"Do dil, ek bandhan, aur ek nayi kahani..."</i></p>
     </div>
 </section>
 
@@ -148,17 +135,29 @@ p {
 <!-- 📩 RSVP -->
 <section>
     <h2>RSVP</h2>
-
     <input type="text" id="name" placeholder="Enter your name"><br>
-
     <button onclick="sendData()">Confirm</button>
-
     <p id="status"></p>
-
     <p>📞 7068606945</p>
 </section>
 
 <script>
+// 🎵 FORCE UNMUTE AFTER LOAD / INTERACTION
+var music = document.getElementById("music");
+
+// Try unmute after 2 sec
+setTimeout(() => {
+    music.muted = false;
+    music.play().catch(() => {});
+}, 2000);
+
+// Also unmute on any interaction (guaranteed)
+document.addEventListener("click", () => {
+    music.muted = false;
+    music.play().catch(() => {});
+}, { once: true });
+
+// ⏳ COUNTDOWN
 var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
 
 setInterval(function() {
@@ -173,6 +172,7 @@ setInterval(function() {
     days + " Days " + hours + " Hrs " + minutes + " Min";
 }, 1000);
 
+// 📩 RSVP
 function sendData() {
     var name = document.getElementById("name").value;
 
@@ -196,20 +196,20 @@ function sendData() {
     });
 }
 
-// Falling flowers
+// 🌸 FLOWERS
 var flowers = ['🌸','🌺','🌼','🌻','🏵️'];
 function createFlower() {
     var f = document.createElement('div');
     f.className = 'flower';
     f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-    f.style.left              = Math.random() * window.innerWidth + 'px';
+    f.style.left = Math.random() * window.innerWidth + 'px';
     f.style.animationDuration = (3 + Math.random() * 5) + 's';
-    f.style.fontSize          = (14 + Math.random() * 16) + 'px';
+    f.style.fontSize = (14 + Math.random() * 16) + 'px';
     document.body.appendChild(f);
     setTimeout(function () { f.remove(); }, 8000);
 }
 setInterval(createFlower, 600);
 </script>
- 
+
 </body>
 </html>
