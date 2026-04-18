@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rajendra ❤️ Gudiya Wedding</title>
 
-<meta property="og:title" content="Rajendra ❤️ Gudiya Wedding Invitation">
-<meta property="og:description" content="You are invited to celebrate our special day 💍 29 April 2026">
-<meta property="og:image" content="https://wedding-wishes.github.io/wedding-invite/couple.jpg">
-<meta property="og:url" content="https://wedding-wishes.github.io/wedding-invite/">
-<meta name="twitter:card" content="summary_large_image">
-
 <style>
 body {
     margin: 0;
@@ -20,15 +14,36 @@ body {
     text-align: center;
 }
 
+/* INTRO SCREEN */
+#intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#intro button {
+    padding: 14px 28px;
+    font-size: 18px;
+    background: gold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* MAIN CONTENT HIDDEN FIRST */
+#mainContent {
+    display: none;
+}
+
 section {
     padding: 20px 10px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    animation: fadeIn 1s ease-in;
 }
 
 h1, h2 {
     color: gold;
-    margin: 10px 0;
 }
 
 .countdown {
@@ -41,7 +56,6 @@ h1, h2 {
     border-radius: 12px;
     margin: 10px auto;
     max-width: 350px;
-    box-shadow: 0 0 10px rgba(255,215,0,0.2);
 }
 
 img {
@@ -51,45 +65,14 @@ img {
     border: 3px solid gold;
 }
 
-input {
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    width: 200px;
-}
-
-button {
-    padding: 8px 16px;
-    background: gold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: orange;
-}
-
-p {
-    margin: 5px 0;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(15px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
 .flower {
     position: fixed;
     top: -50px;
     font-size: 20px;
     animation: fall linear infinite;
-    z-index: 999;
 }
 
 @keyframes fall {
-    0% { transform: translateY(-50px); opacity: 1; }
     100% { transform: translateY(100vh); opacity: 0; }
 }
 </style>
@@ -98,118 +81,86 @@ p {
 <body>
 
 <!-- 🎵 MUSIC -->
-<audio id="music" loop playsinline>
-  <source src="wedding_invitation_card_music_bollywood_song_arrahman_wedding_ga.m4a" type="audio/mp4">
+<audio id="music" loop>
+  <source src="wedding_invitation_card_music_bollywood_song_arrahman_wedding_ga.mp3" type="audio/mpeg">
 </audio>
 
-<p>🎵 Tap anywhere to start music</p>
-<button onclick="playMusic()">🎵 Play Music</button>
+<!-- STEP 1 -->
+<div id="intro">
+    <h1>💌 Wedding Invitation</h1>
+    <p>Tap to open</p>
+    <button onclick="startExperience()">Open Card</button>
+</div>
 
-<!-- 🎉 HERO -->
+<!-- STEP 2 -->
+<div id="mainContent">
+
 <section>
     <h1>Rajendra ❤️ Gudiya Wedding</h1>
-    <p>With love, we invite you to our special day 💍</p>
-    <p>Shaadi mein ab sirf...</p>
+    <p>With love, we invite you 💍</p>
     <div class="countdown" id="countdown"></div>
 </section>
 
-<!-- 💑 COUPLE -->
 <section>
     <h2>💑 Rajendra ❤️ Gudiya</h2>
     <div class="card">
-        <img src="couple.jpg.jpeg" alt="Couple Photo">
+        <img src="couple.jpg.jpeg">
         <p><b>Ek nayi zindagi ki shuruaat...</b></p>
-        <p><i>"Do dil, ek bandhan, aur ek nayi kahani..."</i></p>
     </div>
 </section>
 
-<!-- 📅 DETAILS -->
 <section>
     <h2>Wedding Details</h2>
     <p>📅 29 April 2026</p>
-    <p>📍 Saibasi, Fatehpur, Uttar Pradesh</p>
-    <a href="https://www.google.com/maps/place/Saibsi,+Uttar+Pradesh+212663" target="_blank">
-        <button>View Location</button>
-    </a>
+    <p>📍 Saibasi, Fatehpur</p>
 </section>
 
-<!-- 📩 RSVP -->
-<section>
-    <h2>RSVP</h2>
-    <input type="text" id="name" placeholder="Enter your name"><br>
-    <button onclick="sendData()">Confirm</button>
-    <p id="status"></p>
-    <p>📞 7068606945</p>
-</section>
+</div>
 
 <script>
-// 🎵 MUSIC CONTROL
-var music = document.getElementById("music");
+// 🎵 START EVERYTHING ON CLICK
+function startExperience() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
 
-// autoplay after first click anywhere
-document.body.addEventListener("click", function () {
-    if (music.paused) {
-        music.play().catch(e => console.log("Autoplay blocked:", e));
-    }
-}, { once: true });
+    // play music (guaranteed)
+    document.getElementById("music").play();
 
-// manual button
-function playMusic() {
-    music.play().catch(e => alert("Click anywhere first to enable sound"));
+    startCountdown();
+    startFlowers();
 }
 
 // ⏳ COUNTDOWN
-var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
+function startCountdown() {
+    var weddingDate = new Date("April 29, 2026 17:00:00").getTime();
 
-setInterval(function() {
-    var now = new Date().getTime();
-    var distance = weddingDate - now;
+    setInterval(function() {
+        var now = new Date().getTime();
+        var distance = weddingDate - now;
 
-    var days = Math.floor(distance / (1000*60*60*24));
-    var hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-    var minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        var days = Math.floor(distance / (1000*60*60*24));
+        var hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        var minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
 
-    document.getElementById("countdown").innerHTML =
-    days + " Days " + hours + " Hrs " + minutes + " Min";
-}, 1000);
-
-// 📩 RSVP
-function sendData() {
-    var name = document.getElementById("name").value;
-
-    if(name === "") {
-        alert("Please enter your name");
-        return;
-    }
-
-    document.getElementById("status").innerText = "Submitting...";
-
-    fetch("https://script.google.com/macros/s/AKfycbyKEnCvr3pxZfqVo6qyzV-zXIlaDOwND99Casoaky4hsICtEqvTIZ5cCRML99XsMV8X/exec", {
-        method: "POST",
-        body: JSON.stringify({ name: name })
-    })
-    .then(res => {
-        document.getElementById("status").innerText = "Thank you! 😊";
-        document.getElementById("name").value = "";
-    })
-    .catch(err => {
-        document.getElementById("status").innerText = "Error! Try again";
-    });
+        document.getElementById("countdown").innerHTML =
+        days + " Days " + hours + " Hrs " + minutes + " Min";
+    }, 1000);
 }
 
 // 🌸 FLOWERS
-var flowers = ['🌸','🌺','🌼','🌻','🏵️'];
-function createFlower() {
-    var f = document.createElement('div');
-    f.className = 'flower';
-    f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
-    f.style.left = Math.random() * window.innerWidth + 'px';
-    f.style.animationDuration = (3 + Math.random() * 5) + 's';
-    f.style.fontSize = (14 + Math.random() * 16) + 'px';
-    document.body.appendChild(f);
-    setTimeout(function () { f.remove(); }, 8000);
+function startFlowers() {
+    var flowers = ['🌸','🌺','🌼','🌻'];
+
+    setInterval(function() {
+        var f = document.createElement('div');
+        f.className = 'flower';
+        f.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+        f.style.left = Math.random() * window.innerWidth + 'px';
+        f.style.animationDuration = (3 + Math.random() * 5) + 's';
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 8000);
+    }, 500);
 }
-setInterval(createFlower, 600);
 </script>
 
 </body>
